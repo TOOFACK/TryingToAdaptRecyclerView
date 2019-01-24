@@ -17,24 +17,23 @@ public class Description extends AppCompatActivity {
     private ImageView albumImageV;
     private TextView artistV;
     private TextView descriptionV;
+    private Music music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
 
-        Intent intent = new Intent();
-        String artist = intent.getStringExtra("artist");
-        String description = intent.getStringExtra("description");
-        Bundle bundle = this.getIntent().getExtras();
-        int pic = bundle.getInt("image");
 
-        albumImageV = findViewById(R.id.ImageDes);
-        artistV = findViewById(R.id.artistDes);
-        descriptionV = findViewById(R.id.DesDes);
+       music = (Music) getIntent().getSerializableExtra("musicObject");
 
-        artistV.setText(artist);
-        descriptionV.setText(description);
+        albumImageV = findViewById(R.id.albumImage2);
+        artistV = findViewById(R.id.artistDescription2);
+        descriptionV = findViewById(R.id.artistDescription2);
+
+        artistV.setText(music.getArtist());
+        albumImageV.setImageResource(music.getAlbunImageId());
+        descriptionV.setText(music.getMusic());
 
 
 

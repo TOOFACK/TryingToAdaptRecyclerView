@@ -19,14 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MusicAdapter extends RecyclerView.Adapter<com.example.paulr.tryingtoadaptrecyclerview.MusicAdapter.MusicVH> {
     List<Music> musicList;
-    private Context context;
+
 
     public MusicAdapter(List<Music> musicList) {
         this.musicList = musicList;
     }
-    public MusicAdapter(Context context) {
-        this.context = context;
-    }
+
 
 
     @NonNull
@@ -42,6 +40,7 @@ public class MusicAdapter extends RecyclerView.Adapter<com.example.paulr.tryingt
     @Override
     public void onBindViewHolder(@NonNull final MusicVH musicVH, final int i) {
         final Music music = musicList.get(i);
+
         musicVH.albumImage.setImageResource(music.getAlbunImageId());
         musicVH.artist.setText(music.getArtist());
         musicVH.description.setText(music.getMusic());
@@ -59,15 +58,9 @@ public class MusicAdapter extends RecyclerView.Adapter<com.example.paulr.tryingt
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(musicVH.itemView.getContext(), Description.class);
-              //  MusicVH obj = new MusicVH(musicVH.itemView);
-              //   intent.putExtra("Name",obj);
-               Bundle bundle = new Bundle();
-                int id = musicVH.albumImage.getId();
-                bundle.putInt("image",id );
-                intent.putExtras(bundle);
-                intent.putExtra("artist", musicVH.artist.getText());
-                intent.putExtra("description", musicVH.description.getText());
+
+                Intent intent = new Intent(v.getContext(), Description.class);
+               intent.putExtra("musicObject", music);
                 v.getContext().startActivity(intent);
             }
         });
