@@ -6,21 +6,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.paulr.tryingtoadaptrecyclerview.enities.User;
+import com.example.paulr.tryingtoadaptrecyclerview.model.api.AsyncResponse;
+import com.example.paulr.tryingtoadaptrecyclerview.model.api.JsonPlaceholderApi;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements AsyncResponse {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        UserTask usersTask = new UserTask(this);
+        usersTask.execute();
+
+
+    }
+
+    @Override
+    public void processFinish(ArrayList<User> users) {
         RecyclerView musicRecycler = findViewById(R.id.musicRecycler);
-
-        ArrayList<Music> musicList = new ArrayList<>();
-
-        musicList.add(new Music("Nirvana", "The most famous aka Court Cobain", R.drawable.nir));
-        musicList.add(new Music("Asking Alexandria", "Extreme vocal boys, nobody understand them", R.drawable.askingalexandria));
         musicRecycler.setLayoutManager(new GridLayoutManager(this, 1));
-        musicRecycler.setAdapter(new MusicAdapter(musicList));
+        musicRecycler.setAdapter(new UserAdapter(users));
     }
 }

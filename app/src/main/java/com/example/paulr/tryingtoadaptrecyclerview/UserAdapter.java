@@ -1,14 +1,12 @@
 package com.example.paulr.tryingtoadaptrecyclerview;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.paulr.tryingtoadaptrecyclerview.enities.User;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,15 +15,19 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MusicAdapter extends RecyclerView.Adapter<com.example.paulr.tryingtoadaptrecyclerview.MusicAdapter.MusicVH> {
-    List<Music> musicList;
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MusicVH> {
+    List<User> UserList;
 
 
-    public MusicAdapter(List<Music> musicList) {
-        this.musicList = musicList;
+    public UserAdapter(List<User> UserList) {
+        this.UserList = UserList;
     }
 
 
+    @Override
+    public int getItemCount() {
+        return UserList.size();
+    }
 
     @NonNull
     @Override
@@ -39,15 +41,14 @@ public class MusicAdapter extends RecyclerView.Adapter<com.example.paulr.tryingt
 
     @Override
     public void onBindViewHolder(@NonNull final MusicVH musicVH, final int i) {
-        final Music music = musicList.get(i);
+        final User user = UserList.get(i);
 
-        musicVH.albumImage.setImageResource(music.getAlbunImageId());
-        musicVH.artist.setText(music.getArtist());
-        musicVH.description.setText(music.getMusic());
+        musicVH.userName.setText(user.getName());
+        musicVH.userId.setText(user.getId());
         musicVH.artistCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                musicList.remove(i);
+                UserList.remove(i);
                 notifyItemRemoved(i);
                 notifyItemChanged(i);
                 return false;
@@ -60,29 +61,26 @@ public class MusicAdapter extends RecyclerView.Adapter<com.example.paulr.tryingt
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), Description.class);
-               intent.putExtra("musicObject", music);
+               intent.putExtra("musicObject", user);
                 v.getContext().startActivity(intent);
             }
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return musicList.size();
-    }
+
 
 
     class MusicVH extends RecyclerView.ViewHolder implements Serializable{
-        private ImageView albumImage;
-        private TextView artist;
-        private TextView description;
+
+        private TextView userName;
+        private TextView userId;
         private CardView artistCard;
 
-        public MusicVH(@NonNull View itemView, ImageView albumImage, TextView artist, TextView description) {
+        public MusicVH(@NonNull View itemView,  TextView artist, TextView userId) {
             super(itemView);
-            this.albumImage = albumImage;
-            this.artist = artist;
-            this.description = description;
+
+            this.userName = artist;
+            this.userId = userId;
         }
 
         public MusicVH(@NonNull View itemView) {
@@ -90,9 +88,9 @@ public class MusicAdapter extends RecyclerView.Adapter<com.example.paulr.tryingt
 
 
 
-            albumImage = itemView.findViewById(R.id.albumImage);
-            artist = itemView.findViewById(R.id.artistName);
-            description = itemView.findViewById(R.id.artistDescription);
+
+            userName = itemView.findViewById(R.id.UserName);
+            userId = itemView.findViewById(R.id.UserId);
             artistCard = itemView.findViewById(R.id.musicCard);
 
         }
