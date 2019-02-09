@@ -1,4 +1,4 @@
-package com.example.paulr.tryingtoadaptrecyclerview.model.api;
+package com.example.paulr.tryingtoadaptrecyclerview;
 
 
 import com.example.paulr.tryingtoadaptrecyclerview.enities.User;

@@ -71,14 +71,14 @@ public class JsonPlaceholderApi {
 
        ArrayList<User> userArrayList = new ArrayList<>();
 
-
+        Log.d("pass 2", "Hi i am before looper");
        for(int i = 0; i<array.length(); i++){
            JSONObject curobj = array.getJSONObject(i);
+           Log.d(JsonPlaceholderApi.class.getName(),curobj.toString());
            User newUser = getUser(curobj);
            userArrayList.add(newUser);
-           Log.d("Check", String.valueOf(userArrayList.get(i)));
        }
-
+       Log.d("CheckJson", String.valueOf(userArrayList.get(1)));
         return  userArrayList;
     }
 

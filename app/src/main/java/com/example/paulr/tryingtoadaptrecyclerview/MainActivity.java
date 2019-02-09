@@ -5,14 +5,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.paulr.tryingtoadaptrecyclerview.enities.User;
-import com.example.paulr.tryingtoadaptrecyclerview.model.api.AsyncResponse;
-import com.example.paulr.tryingtoadaptrecyclerview.model.api.JsonPlaceholderApi;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity  implements AsyncResponse {
@@ -30,6 +26,7 @@ public class MainActivity extends AppCompatActivity  implements AsyncResponse {
 
     @Override
     public void processFinish(ArrayList<User> users) {
+        Log.d(MainActivity.class.getName(), String.valueOf(users));
         RecyclerView musicRecycler = findViewById(R.id.musicRecycler);
         musicRecycler.setLayoutManager(new GridLayoutManager(this, 1));
         musicRecycler.setAdapter(new UserAdapter(users));
